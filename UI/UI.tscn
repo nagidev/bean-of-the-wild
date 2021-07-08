@@ -1,0 +1,182 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://UI/UI.gd" type="Script" id=1]
+[ext_resource path="res://UI/Stasis.png" type="Texture" id=2]
+[ext_resource path="res://UI/Focus.png" type="Texture" id=3]
+[ext_resource path="res://UI/Debug.gd" type="Script" id=4]
+[ext_resource path="res://UI/selector.gd" type="Script" id=5]
+[ext_resource path="res://UI/BombCube.png" type="Texture" id=6]
+[ext_resource path="res://UI/Magnesis.png" type="Texture" id=7]
+[ext_resource path="res://UI/Cryonis.png" type="Texture" id=8]
+[ext_resource path="res://UI/BombRound.png" type="Texture" id=9]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float amount: hint_range(0f, 5f);
+uniform float intensity: hint_range(0f, 1f);
+
+void fragment() {
+	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, amount * intensity).rgb;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/amount = 2.0
+shader_param/intensity = 1.0
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="Theme" id=8]
+HScrollBar/icons/decrement = null
+HScrollBar/icons/decrement_highlight = null
+HScrollBar/icons/increment = null
+HScrollBar/icons/increment_highlight = null
+HScrollBar/styles/grabber = SubResource( 3 )
+HScrollBar/styles/grabber_highlight = SubResource( 4 )
+HScrollBar/styles/grabber_pressed = SubResource( 5 )
+HScrollBar/styles/scroll = SubResource( 6 )
+HScrollBar/styles/scroll_focus = SubResource( 7 )
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[node name="UI" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Instructions" type="Label" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -195.0
+margin_right = 248.0
+margin_bottom = -11.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Esc - Fullscreen
+WASD - Move
+Space - Jump
+Tab + mouse scroll - rune select
+Right Mouse Button - activate rune
+Shift - cancel rune
+Mouse Scroll - magnet distance
+E - drop
+Q - throw
+F5 - restart
+F12 - Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RuneIndicator" type="Container" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 224.0
+margin_bottom = 32.0
+theme = SubResource( 8 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RuneIndicator"]
+margin_right = 336.0
+margin_bottom = 64.0
+focus_mode = 2
+alignment = 1
+
+[node name="BombRound" type="TextureButton" parent="RuneIndicator/HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 9 )
+texture_focused = ExtResource( 3 )
+
+[node name="BombCube" type="TextureButton" parent="RuneIndicator/HBoxContainer"]
+margin_left = 68.0
+margin_right = 132.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 6 )
+texture_focused = ExtResource( 3 )
+
+[node name="Magnesis" type="TextureButton" parent="RuneIndicator/HBoxContainer"]
+margin_left = 136.0
+margin_right = 200.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 7 )
+texture_focused = ExtResource( 3 )
+
+[node name="Stasis" type="TextureButton" parent="RuneIndicator/HBoxContainer"]
+margin_left = 204.0
+margin_right = 268.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 2 )
+texture_focused = ExtResource( 3 )
+
+[node name="Cryonis" type="TextureButton" parent="RuneIndicator/HBoxContainer"]
+margin_left = 272.0
+margin_right = 336.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 8 )
+texture_focused = ExtResource( 3 )
+
+[node name="CurrentRune" type="TextureRect" parent="."]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 68.0
+margin_bottom = 68.0
+texture = ExtResource( 9 )
+
+[node name="Debug" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Debug"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 470.0
+margin_top = 158.0
+margin_right = 514.0
+margin_bottom = 172.0
+custom_colors/font_color = Color( 0.533333, 0.533333, 0.533333, 1 )
+text = "ACTIVE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Draw" type="ImmediateGeometry" parent="Debug"]
+material_override = SubResource( 9 )

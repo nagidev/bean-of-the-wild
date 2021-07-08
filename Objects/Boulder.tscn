@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Objects/metalBox0.material" type="Material" id=1]
+[ext_resource path="res://Objects/Metal.gd" type="Script" id=2]
+[ext_resource path="res://Objects/metal.phymat" type="PhysicsMaterial" id=3]
+
+[sub_resource type="CapsuleShape" id=1]
+
+[sub_resource type="CapsuleMesh" id=2]
+radial_segments = 16
+rings = 4
+
+[node name="Boulder" type="RigidBody"]
+mass = 5.0
+physics_material_override = ExtResource( 3 )
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = ExtResource( 1 )

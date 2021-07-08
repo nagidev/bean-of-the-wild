@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://KinematicCharacter/sword.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://KinematicCharacter/sword.gd" type="Script" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.3, 1.1, 0.2 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "attack"
+length = 0.4
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:rotation_degrees:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.1, 0, -10, -0.15, 0, 0.15, 0, 0, -0.1, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.4 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:rotation_degrees:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.1, 0, -130, -0.15, 0, 0.15, 0, 0, -0.1, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.4 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:rotation_degrees:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1.37212, -0.25, 0, 0.1, 0, -60, -0.15, 0, 0.15, 0, 0, -0.1, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.4 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath(".:translation:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.1, 0, 1, -0.15, 0, 0.15, 0, 0, -0.1, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.4 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CollisionShape:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.0317535, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[node name="Sword" type="Area"]
+script = ExtResource( 2 )
+
+[node name="Mesh" type="MeshInstance" parent="."]
+transform = Transform( 0.433013, 0.25, -0.866025, -0.5, 0.866025, 0, 0.75, 0.433013, 0.5, 1, 1, 0 )
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.433013, 0.25, -0.866025, -0.5, 0.866025, 0, 0.75, 0.433013, 0.5, 1.26887, 1.96043, 0.473963 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 1.5
+anims/attack = SubResource( 2 )

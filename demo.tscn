@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://KinematicCharacter/kinematicCharacter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Floor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://KinematicCharacter/white.material" type="Material" id=4]
+[ext_resource path="res://Objects/Boulder.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Objects/MetalBox.tscn" type="PackedScene" id=7]
+
+[sub_resource type="ProceduralSky" id=1]
+sky_top_color = Color( 0.466667, 0.776471, 0.945098, 1 )
+sky_horizon_color = Color( 0.592157, 0.796078, 0.956863, 1 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+background_color = Color( 0.133333, 0.0666667, 0.2, 1 )
+fog_color = Color( 0.533333, 0.501961, 0.701961, 1 )
+fog_sun_color = Color( 1, 0.701961, 0.701961, 1 )
+fog_depth_begin = 5.0
+tonemap_mode = 1
+ssao_enabled = true
+ssao_radius = 2.0
+ssao_intensity = 2.0
+ssao_quality = 0
+dof_blur_near_distance = 1.0
+glow_enabled = true
+glow_intensity = 1.0
+glow_bicubic_upscale = true
+
+[node name="Demo" type="Spatial"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.792215, 0.610242, 0, -0.610242, -0.792215, 0, 7, 0 )
+light_color = Color( 1, 0.980392, 0.835294, 1 )
+shadow_enabled = true
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0 )
+use_collision = true
+invert_faces = true
+width = 50.0
+height = 30.0
+depth = 50.0
+material = ExtResource( 4 )
+
+[node name="Character" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625985, 0 )
+
+[node name="MetalBox" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, 0 )
+
+[node name="MetalBox2" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.94587, 23.4084, 19.0637 )
+
+[node name="MetalBox3" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6983, 19.8688, -19.5889 )
+
+[node name="Boulder" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7931, 20.9531, -23.2982 )
+
+[node name="Boulder2" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0121, 21.8245, -23.6028 )
+
+[node name="Floor" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.6317, 10.9829, -17.0466 )
+
+[node name="Floor4" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.96529, 15.026, -17.0466 )
+
+[node name="Floor5" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.339, 18.1205, -17.0466 )
+
+[node name="Floor2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3997, 3.54832, 23.8445 )
+
+[node name="Floor6" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 16.6003, 3.54832, 15.8445 )
+
+[node name="Floor3" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3997, 6.31967, 2.14781 )

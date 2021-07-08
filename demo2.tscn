@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/MetalBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://KinematicCharacter/kinematicCharacter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Floor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/StoneBlock.tscn" type="PackedScene" id=4]
+
+[node name="demo2" type="Spatial"]
+
+[node name="Objects" type="Spatial" parent="."]
+
+[node name="MetalBox" parent="Objects" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 6 )
+
+[node name="StoneBlock" parent="Objects" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 6 )
+
+[node name="Character" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="Floor" parent="." instance=ExtResource( 3 )]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 7, 0 )
+shadow_enabled = true
