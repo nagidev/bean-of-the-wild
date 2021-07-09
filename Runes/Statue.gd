@@ -1,17 +1,20 @@
 extends Spatial
-
+# TODO : timer ui
 
 export var enabled = true
 
 onready var raycast = $RayCast
 onready var arrow = $Arrow
-onready var timer = $Timer
+onready var statueTimer = $StatueTimer
+onready var rechargeTimer = $RechargeTimer
 
 var targetObject = null # stores reference of object stasised
+var charged = true
 
 
 func _ready():
-	timer.connect("timeout", self, "_on_timeout")
+	statueTimer.connect("timeout", self, "_on_timeout")
+	rechargeTimer.connect("timeout", self, "_on_recharged")
 	UI.connect("rune_changed", self, "_on_rune_changed")
 
 
@@ -24,7 +27,7 @@ func _process(delta):
 		if Input.is_action_just_pressed("activate"):
 			if UI.runeActive:
 				deactivate()
-			elif not targetObject:
+			elif not targetObject and charged:
 				activate()
 		
 		# interaction
@@ -72,7 +75,8 @@ func statue( body ):
 	targetObject = body
 	targetObject.statue()
 	UI.runeSelected = true
-	timer.start()
+	statueTimer.start()
+	charged = false
 
 
 func unstatue():
@@ -81,10 +85,15 @@ func unstatue():
 		UI.runeSelected = false
 		targetObject = null
 		arrow.hide()
+		rechargeTimer.start()
 
 
 func _on_timeout():
 	unstatue()
+
+
+func _on_recharged():
+	charged = true
 
 
 func _on_rune_changed():

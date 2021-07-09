@@ -5,6 +5,6 @@
 [node name="bombPower" type="Spatial"]
 script = ExtResource( 1 )
 
-[node name="waitTimer" type="Timer" parent="."]
-wait_time = 3.0
+[node name="RechargeTimer" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true

@@ -19,6 +19,8 @@ func _process(_delta):
 
 
 func _input(_event):
+	if UI.runeActive:
+		return
 	var bodies = get_overlapping_bodies()
 	var object
 	if bodies.size() > 0:

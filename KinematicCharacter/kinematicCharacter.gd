@@ -30,8 +30,6 @@ func _process(_delta):
 		0,
 		Input.get_action_strength("forward") - Input.get_action_strength("backward")
 	).rotated(Vector3.UP, rotation.y).normalized()
-	
-	#debug.text = str(iceicebaby.get_node("RayCast").is_colliding())
 
 
 func _physics_process(delta):	

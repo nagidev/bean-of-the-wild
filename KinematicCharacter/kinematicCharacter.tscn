@@ -49,7 +49,7 @@ transform = Transform( 1, 0, -9.9476e-14, 0, 1, 0, 0, 0, 1, -6.99382e-07, 0, 8 )
 far = 1000.0
 margin = 0.01
 process_mode = 1
-collision_mask = 17
+collision_mask = 65
 clip_to_areas = true
 
 [node name="iceicebaby" parent="Pivot" instance=ExtResource( 8 )]

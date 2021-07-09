@@ -1,4 +1,5 @@
 extends Control
+# TODO : Crosshairs
 
 signal rune_changed
 signal rune_activated

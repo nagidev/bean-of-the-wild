@@ -64,6 +64,7 @@ tracks/4/keys = {
 }
 
 [node name="Sword" type="Area"]
+collision_layer = 8
 script = ExtResource( 2 )
 
 [node name="Mesh" type="MeshInstance" parent="."]

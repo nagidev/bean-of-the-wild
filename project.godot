@@ -56,8 +56,16 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Loader="*res://Loader.tscn"
 Global="*res://global.gd"
 UI="*res://UI/UI.tscn"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/fullscreen=true
+window/size/always_on_top=true
 
 [input]
 
@@ -141,8 +149,10 @@ reset={
 3d_physics/layer_2="player"
 3d_physics/layer_3="enemy"
 3d_physics/layer_4="weapons"
-3d_physics/layer_5="Water"
+3d_physics/layer_5="items"
 3d_physics/layer_6="Metal"
+3d_physics/layer_7="Water"
+3d_physics/layer_8="Stone"
 
 [physics]
 
@@ -152,5 +162,7 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+threads/thread_model=2
 quality/filters/msaa=2
+quality/filters/use_fxaa=true
 environment/default_environment="res://default_env.tres"

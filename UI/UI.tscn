@@ -156,8 +156,9 @@ margin_bottom = 68.0
 texture = ExtResource( 9 )
 
 [node name="Debug" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -168,10 +169,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 470.0
-margin_top = 158.0
-margin_right = 514.0
-margin_bottom = 172.0
+margin_left = -22.0
+margin_top = -270.0
+margin_right = 22.0
+margin_bottom = -256.0
 custom_colors/font_color = Color( 0.533333, 0.533333, 0.533333, 1 )
 text = "ACTIVE"
 __meta__ = {

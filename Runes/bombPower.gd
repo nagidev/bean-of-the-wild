@@ -1,5 +1,5 @@
 extends Spatial
-
+# TODO : recharge timer ui
 
 export (UI.Rune) var type = UI.Rune.BOMB_ROUND
 export var BombScene = preload("res://Runes/bombRound.tscn")
@@ -7,17 +7,17 @@ export var max_distance = 50
 export (NodePath) var hand
 
 
-onready var timer = $waitTimer
+onready var rechargeTimer = $RechargeTimer
 
 
 var bomb = null
 var holding = false
-var waiting = false
+var charged = true
 
 
 func _ready():
 	hand = get_node(hand)
-	timer.connect("timeout", self, "_on_wait_timeout")
+	rechargeTimer.connect("timeout", self, "_on_recharged")
 
 
 func _process(_delta):
@@ -27,7 +27,7 @@ func _process(_delta):
 				pass
 			elif bomb:
 				explodeBomb()
-			elif not waiting:
+			elif charged:
 				createBomb(BombScene)
 	elif Input.is_action_just_pressed("cancel"):
 		if hand_holding():
@@ -60,9 +60,9 @@ func cancelBomb():
 func explodeBomb():
 	bomb.explode()
 	bomb = null
-	waiting = true
-	timer.start()
+	charged = false
+	rechargeTimer.start()
 
 
-func _on_wait_timeout():
-	waiting = false
+func _on_recharged():
+	charged = true

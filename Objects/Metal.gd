@@ -31,13 +31,6 @@ func _integrate_forces(state):
 		var angular_vel = global_transform.basis.y.cross( target_basis.y ) + global_transform.basis.z.cross( target_basis.z )
 		state.angular_velocity = angular_vel
 		state.angular_velocity = state.angular_velocity * 3
-		
-		var deb = target_basis.z
-		
-#		UI.debug.debug_text( '' )
-#		UI.debug.debug_draw_line( state.transform.origin, state.transform.origin + target_basis.z)
-#		UI.debug.debug_draw_line( state.transform.origin, state.transform.origin + target_basis.y, false )
-#		UI.debug.debug_draw_line( state.transform.origin, state.transform.origin + target_basis.x, false )
 
 
 func _process(delta):

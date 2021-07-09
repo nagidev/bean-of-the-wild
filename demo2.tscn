@@ -23,3 +23,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 7, 0 )
 shadow_enabled = true
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -1, 1.77636e-15, -8.74228e-08, -2.26267e-08, 0.965926, 0.258819, 8.44439e-08, 0.258819, -0.965926, 0, 6, -10 )
+current = true
