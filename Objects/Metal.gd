@@ -1,6 +1,6 @@
 extends RigidObject
 class_name Metal
-# TODO : more angles when selecting
+# TODO : more angles when selecting, color off when RuneSelect
 
 export var metal_h_color = Color("ff0061")
 export var metal_s_color = Color("ffd700")

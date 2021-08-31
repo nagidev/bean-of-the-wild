@@ -51,7 +51,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Link of Legend"
-run/main_scene="res://demo3.tscn"
+run/main_scene="res://Shrine.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -163,6 +163,7 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 threads/thread_model=2
-quality/filters/msaa=2
+quality/filters/msaa=1
 quality/filters/use_fxaa=true
+quality/filters/use_debanding=true
 environment/default_environment="res://default_env.tres"

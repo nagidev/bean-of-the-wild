@@ -59,6 +59,7 @@ func pickup(item):
 			drop()
 		holding = item
 		holding.mode = RigidBody.MODE_KINEMATIC
+		holding.global_transform = hand.global_transform
 		hand_offset = Vector3.ZERO
 
 

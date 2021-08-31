@@ -1,4 +1,6 @@
 extends Area
+# TODO : better force calculation
+const MAX_POWER = 1000
 
 export var force = 50
 
@@ -26,14 +28,15 @@ func _on_body_entered(body):
 	#print(body.name + ': ' + str(body is RigidBody))
 	var direction = ( body.global_transform.origin - global_transform.origin ).normalized()
 	var distance = max(( body.global_transform.origin - global_transform.origin ).length()/size, 0.01)
-	var power = force / pow(distance, 2) * 0.2
+	var power = min((force / pow(distance, 2)), MAX_POWER)
 	if body is RigidObject:
 		body.hit( global_transform.origin, power )
 	elif body is RigidBody:
 		body.apply_central_impulse(direction * power)
 	elif body is Player:
-		body.velocity = direction * power * 0.5
-		body.velocity.y *= 0.05
+		print("direction: ", direction, "\ndistance: ", distance, "\npower: ", power)
+		body.velocity = direction * power
+		body.velocity.y *= 0.1
 	elif body is IceBlock:
 		body.destroy_block()
 

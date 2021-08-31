@@ -26,6 +26,9 @@ var currentRune = Rune.BOMB_ROUND
 
 func _ready():
 	runeActive = false
+	currentRune = Rune.BOMB_ROUND
+	
+	rune_indicator_update()
 
 
 func _process(_delta):

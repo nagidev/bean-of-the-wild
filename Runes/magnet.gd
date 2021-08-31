@@ -68,6 +68,7 @@ func _process(_delta):
 				if Input.is_action_just_pressed("interact"):
 					# pickup metal object
 					pointer.global_transform.origin = raycast.get_collision_point()
+					pointer.translation.z += raycast.get_collision_point().distance_to( collider.global_transform.origin )
 					if collider.pickUp( pointer ):
 						interactObject = collider
 						UI.runeSelected = true

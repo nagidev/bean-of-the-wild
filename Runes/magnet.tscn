@@ -64,6 +64,7 @@ bones/1/enabled = true
 bones/1/bound_children = [  ]
 
 [node name="MagMesh" type="MeshInstance" parent="Skeleton"]
+visible = false
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
 material/0 = ExtResource( 5 )

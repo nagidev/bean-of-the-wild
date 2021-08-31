@@ -1,6 +1,7 @@
 class_name Water
 extends Area
 
+export (NodePath) var mesh
 
 var material = preload("res://Runes/highlight1.material")
 var shader_energy = 0.0
@@ -8,7 +9,7 @@ var shader_speed = 20
 
 
 func _ready():
-	$MeshInstance.get_active_material(0).next_pass = material
+	get_node(mesh).get_active_material(0).next_pass = material
 
 
 func _process(delta):

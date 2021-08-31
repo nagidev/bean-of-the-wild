@@ -2,7 +2,7 @@ extends RigidBody
 class_name RigidObject
 
 
-const MAX_FORCE = 700
+const MAX_FORCE = 550
 
 signal body_hit
 signal stasised
