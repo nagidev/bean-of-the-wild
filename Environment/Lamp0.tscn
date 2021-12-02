@@ -20,7 +20,7 @@ surfaces/0 = {
 "vertex_count": 290
 }
 
-[node name="StaticBody" type="StaticBody"]
+[node name="Lamp0" type="StaticBody"]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )

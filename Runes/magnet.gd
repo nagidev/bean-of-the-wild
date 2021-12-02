@@ -1,6 +1,7 @@
 extends Spatial
 
 # NOTE : xform ( world space position ), xform_inv ( relative position )
+# TODO : 
 
 export var enabled = true
 export (NodePath) var player
@@ -28,7 +29,7 @@ func _ready():
 
 
 func _process(_delta):
-	if not enabled:
+	if (not enabled) or Global.cutscene or not Global.alive:
 		return
 	
 	# start position
@@ -64,7 +65,10 @@ func _process(_delta):
 			var collider = raycast.get_collider()
 			
 			if collider is Metal:
+				UI.aim()
+				
 				collider.highlight()
+				
 				if Input.is_action_just_pressed("interact"):
 					# pickup metal object
 					pointer.global_transform.origin = raycast.get_collision_point()
@@ -87,12 +91,7 @@ func _process(_delta):
 			pointer.translation.z -= 1
 		pointer.translation.z = clamp(pointer.translation.z, 4, 20)
 	
-	# cancel rune
-	if UI.currentRune != UI.Rune.MAGNESIS and Input.is_action_just_released("rune_select"):
-		deactivate()
-	
-	# StartPos Update
-	# EndPos update
+	# Effect Posisiton Update
 	if interactObject:
 		var start = translation + global_transform.xform_inv( player.global_transform.origin + Vector3.UP * 2 )
 		var end = translation + global_transform.xform_inv(interactObject.global_transform.origin - transform.origin)

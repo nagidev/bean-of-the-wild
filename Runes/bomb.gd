@@ -12,6 +12,7 @@ onready var Explosion = preload("res://FX/explosion.tscn")
 
 var hand = null
 var pickable = true
+var stasised = false
 
 
 func _ready():
@@ -23,6 +24,7 @@ func explode():
 	var explosion = Explosion.instance()
 	get_parent().add_child(explosion)
 	explosion.global_transform.origin = global_transform.origin
+	explosion.explode()
 	queue_free()
 
 

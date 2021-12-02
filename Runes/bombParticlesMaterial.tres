@@ -1,0 +1,22 @@
+[gd_resource type="ParticlesMaterial" load_steps=3 format=2]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 4.15227, 0, 0, Vector2( 0.992481, 0 ), -3.98712, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[resource]
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_align_y = true
+flag_rotate_y = true
+direction = Vector3( 0, 1, 0 )
+spread = 180.0
+gravity = Vector3( 0, 1, 0 )
+initial_velocity = 1.0
+damping = 0.8
+angle = 8.0
+scale = 0.01
+scale_random = 0.02
+scale_curve = SubResource( 2 )

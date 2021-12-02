@@ -4,7 +4,7 @@
 [ext_resource path="res://KinematicCharacter/sword.gd" type="Script" id=2]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.4, 1.1, 0.2 )
+extents = Vector3( 0.5, 1.1, 0.2 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "attack"
@@ -28,7 +28,7 @@ tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
 "points": PoolRealArray( 0, -0.25, 0, 0.1, 0, -130, -0.15, 0, 0.15, 0, 0, -0.1, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.15, 0.4 )
+"times": PoolRealArray( 0, 0.2, 0.4 )
 }
 tracks/2/type = "bezier"
 tracks/2/path = NodePath(".:rotation_degrees:z")
@@ -38,7 +38,7 @@ tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
 "points": PoolRealArray( 1.37212, -0.25, 0, 0.1, 0, -60, -0.15, 0, 0.15, 0, 0, -0.1, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.15, 0.4 )
+"times": PoolRealArray( 0, 0.2, 0.4 )
 }
 tracks/3/type = "bezier"
 tracks/3/path = NodePath(".:translation:y")
@@ -48,7 +48,7 @@ tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
 "points": PoolRealArray( 0, -0.25, 0, 0.1, 0, 1, -0.15, 0, 0.15, 0, 0, -0.1, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.15, 0.4 )
+"times": PoolRealArray( 0, 0.2, 0.4 )
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("CollisionShape:disabled")
@@ -57,13 +57,14 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.0317535, 0.1 ),
+"times": PoolRealArray( 0.0317535, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
 }
 
 [node name="Sword" type="Area"]
+transform = Transform( 0.940387, 0.142836, -0.308658, -0.144317, 0.989365, 0.0181505, 0.307968, 0.0274762, 0.951, 0, 0.138319, 0 )
 collision_layer = 8
 script = ExtResource( 2 )
 
@@ -74,7 +75,7 @@ material/0 = null
 material/1 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.433013, 0.25, -0.866025, -0.5, 0.866025, 0, 0.75, 0.433013, 0.5, 1.26905, 1.96043, 0.349638 )
+transform = Transform( 0.433013, 0.25, -0.866025, -0.5, 0.866025, 0, 0.75, 0.433013, 0.5, 1.1, 2, 0.25 )
 shape = SubResource( 1 )
 disabled = true
 

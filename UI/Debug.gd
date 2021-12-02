@@ -5,12 +5,13 @@ onready var label = $Label
 onready var draw = $Draw
 
 
-func _process(delta):
-	#label.text = "Rune Acitve" if UI.runeActive else "----"
+func _process(_delta):
+	#label.text = "Rune Active:" + str(UI.runeActive)
+	#label.text += "\nRune Selected:" + str(UI.runeSelected)
 	pass
 
 func debug_text( text ):
-	label.text = text
+	label.text = str(text)
 
 
 func debug_draw_line( from, to, clear= true ):

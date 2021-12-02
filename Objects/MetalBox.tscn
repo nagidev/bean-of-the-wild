@@ -26,6 +26,7 @@ physics_material_override = ExtResource( 3 )
 contact_monitor = true
 can_sleep = false
 script = ExtResource( 1 )
+pickable = true
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )

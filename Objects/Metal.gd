@@ -1,6 +1,6 @@
 extends RigidObject
 class_name Metal
-# TODO : more angles when selecting, color off when RuneSelect
+# TODO : more angles when selecting
 
 export var metal_h_color = Color("ff0061")
 export var metal_s_color = Color("ffd700")
@@ -9,10 +9,12 @@ var targetObject = null
 
 
 func _ready():
-	collision_layer = 32
+	collision_layer = 33
 	collision_mask = 47
 	
 	type.append( UI.Rune.MAGNESIS )
+	
+	_on_rune_changed()
 	
 	UI.connect("rune_changed", self, "_on_rune_changed")
 	connect("unstasised", self, "_on_rune_changed")
@@ -33,7 +35,7 @@ func _integrate_forces(state):
 		state.angular_velocity = state.angular_velocity * 3
 
 
-func _process(delta):
+func _process(_delta):
 	if UI.currentRune == UI.Rune.MAGNESIS and not targetObject and not stasised:
 		unhighlight()
 
@@ -42,13 +44,11 @@ func pickUp( tObject ):
 	if stasised:
 		return false
 	targetObject = tObject
-	pickable = false
 	return true
 
 
 func drop():
 	targetObject = null
-	pickable = true
 	unhighlight()
 
 
@@ -63,5 +63,6 @@ func _on_rune_changed():
 
 func _on_rune_selected():
 	._on_rune_selected()
-	if UI.currentRune == UI.Rune.MAGNESIS and not targetObject and not stasised:
-		material.next_pass.set_shader_param("Energy", 0)
+	if UI.currentRune == UI.Rune.MAGNESIS:
+		if not targetObject and not stasised:
+			material.next_pass.set_shader_param("energy", 0)

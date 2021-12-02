@@ -1,6 +1,6 @@
 extends RigidBody
 class_name RigidObject
-
+# TODO : 
 
 const MAX_FORCE = 550
 
@@ -8,11 +8,13 @@ signal body_hit
 signal stasised
 signal unstasised
 
-export var pickable = true
+export var pickable = false
 export var rigid_h_color = Color("ffd700")
-export var rigid_s_color = Color("a1ff00")
+export var rigid_s_color = Color("85ff00")
 
 onready var material = $MeshInstance.get_active_material(0)
+onready var StasisFX = load("res://FX/stasisFX.tscn")
+onready var StasisOutFX = load("res://FX/stasisOutFX.tscn")
 
 var default_mode = RigidBody.MODE_RIGID
 var type = [UI.Rune.STASIS]
@@ -27,25 +29,25 @@ func _ready():
 	can_sleep = false
 	
 	# highlight material
-	if material.next_pass == null:
-		material.next_pass = load("res://Runes/highlight.material")
-		material.resource_local_to_scene = true
-		material.next_pass.resource_local_to_scene = true
+#	if material.next_pass == null:
+#		material.set_next_pass( preload("res://Runes/highlight.material") )
+#		material.next_pass.resource_local_to_scene = true
+#		print(self.name, material.next_pass)
 	
-	material.next_pass.set_shader_param("Energy", 0)
+	_on_rune_activated()
 	
 	UI.connect("rune_activated", self, "_on_rune_activated")
 	UI.connect("rune_selected", self, "_on_rune_selected")
 
 
-func _process(delta):
+func _process(_delta):
 	if UI.currentRune == UI.Rune.STASIS:
 		unhighlight()
 
 
 func hit( hit_pos, hit_amt ):
-	var direction = (transform.origin - hit_pos ).normalized()
-	#UI.debug.debug_draw_line( hit_pos, transform.origin )
+	var direction = (global_transform.origin - hit_pos ).normalized()
+	#UI.debug.debug_draw_line( hit_pos, global_transform.origin )
 	if stasised:
 		var magnitude = accumulation.length() + hit_amt
 		accumulation = direction * magnitude
@@ -65,8 +67,13 @@ func statue():
 	stasised = true
 	pickable = false
 	mode = RigidBody.MODE_STATIC
-	material.next_pass.set_shader_param("Energy", 1)
-	# TODO : show some fx here
+	material.next_pass.set_shader_param("energy", 1)
+	material.next_pass.set_shader_param("blinking", 1)
+	
+	var fx = StasisFX.instance()
+	fx.translation = translation
+	get_parent().add_child(fx)
+	
 	emit_signal("stasised")
 
 
@@ -74,8 +81,12 @@ func unstatue():
 	stasised = false
 	pickable = true
 	mode = default_mode
-	material.next_pass.set_shader_param("Energy", 0)
-	# TODO : show some release fx here
+	material.next_pass.set_shader_param("energy", 0)
+	material.next_pass.set_shader_param("blinking", 0)
+	
+	var fx = StasisOutFX.instance()
+	fx.translation = translation
+	get_parent().add_child(fx)
 	
 	# accumulated force
 	if accumulation.length() > 0.1:
@@ -86,22 +97,22 @@ func unstatue():
 
 
 func highlight():
-	material.next_pass.set_shader_param("HighlightColor", selectColor)
+	material.next_pass.set_shader_param("highlightColor", selectColor)
 
 
 func unhighlight():
-	material.next_pass.set_shader_param("HighlightColor", highlightColor)
+	material.next_pass.set_shader_param("highlightColor", highlightColor)
 
 
 func _on_rune_activated():
 	if UI.runeActive:
 		if type.has(UI.currentRune):
 			unhighlight()
-			material.next_pass.set_shader_param("Energy", 1)
+			material.next_pass.set_shader_param("energy", 1)
 	elif not stasised:
-		material.next_pass.set_shader_param("Energy", 0)
+		material.next_pass.set_shader_param("energy", 0)
 
 
 func _on_rune_selected():
 	if UI.currentRune == UI.Rune.STASIS and not stasised:
-		material.next_pass.set_shader_param("Energy", 0)
+		material.next_pass.set_shader_param("energy", 0)

@@ -4,11 +4,12 @@
 [ext_resource path="res://Objects/metal.phymat" type="PhysicsMaterial" id=2]
 [ext_resource path="res://Runes/bombCube.material" type="Material" id=3]
 [ext_resource path="res://Runes/magneticField.material" type="Material" id=4]
+[ext_resource path="res://Runes/bombParticlesMaterial.tres" type="Material" id=5]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=9]
 extents = Vector3( 0.5, 0.5, 0.5 )
 
-[sub_resource type="ArrayMesh" id=2]
+[sub_resource type="ArrayMesh" id=10]
 resource_name = "bombCube"
 surfaces/0 = {
 "aabb": AABB( -0.5, -0.5, -0.5, 1, 1.2, 1.00001 ),
@@ -23,43 +24,30 @@ surfaces/0 = {
 "vertex_count": 92
 }
 
-[sub_resource type="ParticlesMaterial" id=3]
-emission_shape = 1
-emission_sphere_radius = 1.0
-flag_align_y = true
-flag_rotate_y = true
-direction = Vector3( 0, 1, 0 )
-spread = 180.0
-gravity = Vector3( 0, 1, 0 )
-initial_velocity = 1.0
-damping = 0.8
-angle = 8.0
-scale = 0.01
-scale_random = 0.02
-
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="CubeMesh" id=12]
 material = ExtResource( 4 )
 
 [node name="BombCube" type="RigidBody"]
 collision_layer = 8
 collision_mask = 15
+mass = 5.0
 physics_material_override = ExtResource( 2 )
 can_sleep = false
 script = ExtResource( 1 )
 type = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 9 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 2 )
+mesh = SubResource( 10 )
 material/0 = null
 
 [node name="Particles" type="Particles" parent="."]
 amount = 32
 local_coords = false
-process_material = SubResource( 3 )
-draw_pass_1 = SubResource( 4 )
+process_material = ExtResource( 5 )
+draw_pass_1 = SubResource( 12 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
 light_color = Color( 0.121569, 0.768627, 1, 1 )

@@ -17,5 +17,7 @@ func attack():
 
 
 func _on_body_entered( body ):
-	if body.has_method("hit"):
-		body.hit( global_transform.origin, damage )
+	if body is RigidObject:
+		body.hit( get_parent().global_transform.origin, damage )
+	elif body is Switch:
+		body.hit()

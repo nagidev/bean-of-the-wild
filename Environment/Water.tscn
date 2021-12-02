@@ -30,8 +30,8 @@ shape = SubResource( 2 )
 [node name="Gravity" type="Area" parent="."]
 input_ray_pickable = false
 space_override = 1
-gravity = -18.0
-linear_damp = 1.1
+gravity_distance_scale = 2.0
+gravity = -20.0
 angular_damp = 0.4
 collision_layer = 64
 collision_mask = 31

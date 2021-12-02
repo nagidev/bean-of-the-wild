@@ -46,7 +46,3 @@ material/0 = SubResource( 2 )
 [node name="StatueTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
-
-[node name="RechargeTimer" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true

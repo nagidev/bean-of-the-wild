@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://FX/stasisFX.gd" type="Script" id=1]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0.530682 ), 0.0, 2.99394, 0, 0, Vector2( 1, 0 ), -2.26336, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 8.0
+flag_align_y = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+damping = 10.0
+damping_random = 0.5
+scale = 2.0
+scale_curve = SubResource( 2 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_do_not_receive_shadows = true
+params_diffuse_mode = 4
+params_cull_mode = 2
+params_grow = true
+params_grow_amount = 0.0
+albedo_color = Color( 1, 0.843137, 0, 1 )
+emission_enabled = true
+emission = Color( 1, 1, 0, 1 )
+emission_energy = 10.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="QuadMesh" id=5]
+material = SubResource( 4 )
+size = Vector2( 0.1, 1 )
+
+[node name="StasisFX" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Particles" type="Particles" parent="."]
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 5 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true

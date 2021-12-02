@@ -7,10 +7,19 @@ export var throwForce = 15
 onready var hand = $Position3D
 onready var raycast = $RayCast
 
+var object = null
 var holding = null
 var hand_offset = Vector3.ZERO
 
-func _process(_delta):
+func _ready():
+	connect("body_entered", self, "_on_body_entered")
+	connect("body_exited", self, "_on_body_exited")
+
+func _physics_process(_delta):
+	if UI.runeActive or Global.cutscene or not Global.alive:
+		drop()
+		return
+	
 	if holding:
 		if raycast.is_colliding():
 			_set_hand_offset()
@@ -19,15 +28,8 @@ func _process(_delta):
 
 
 func _input(_event):
-	if UI.runeActive:
+	if UI.runeActive or Global.cutscene or not Global.alive:
 		return
-	var bodies = get_overlapping_bodies()
-	var object
-	if bodies.size() > 0:
-		object = bodies.front()
-		# show "Pickup (E)"
-	else:
-		object = null
 	
 	if Input.is_action_just_released("interact"):
 		if object:
@@ -77,3 +79,13 @@ func throw():
 		holding.apply_impulse(transform.basis.z, force)
 		holding.angular_velocity = Vector3.ZERO
 		holding = null
+
+
+func _on_body_entered(body):
+	if body.pickable and not body.stasised:
+		object = body
+
+
+func _on_body_exited(body):
+	if body == object:
+		object = null

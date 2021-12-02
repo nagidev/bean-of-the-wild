@@ -6,7 +6,7 @@
 [ext_resource path="res://KinematicCharacter/capsule.obj" type="ArrayMesh" id=5]
 [ext_resource path="res://Runes/bombPower.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Runes/bombCube.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Runes/iceicebaby.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Runes/cryonis.tscn" type="PackedScene" id=8]
 [ext_resource path="res://KinematicCharacter/hand.tscn" type="PackedScene" id=9]
 [ext_resource path="res://KinematicCharacter/sword.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Runes/Statue.tscn" type="PackedScene" id=11]
@@ -16,8 +16,8 @@
 radius = 0.75
 height = 1.5
 
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.1, 0.1, 0.1 )
+[sub_resource type="SphereShape" id=2]
+radius = 0.76
 
 [node name="Character" type="KinematicBody"]
 collision_layer = 2
@@ -35,31 +35,36 @@ mesh = ExtResource( 5 )
 material/0 = ExtResource( 3 )
 material/1 = ExtResource( 4 )
 
-[node name="Pivot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+[node name="Head" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0 )
+collision_layer = 0
+collision_mask = 165
 
-[node name="CamArm" type="SpringArm" parent="Pivot"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74227e-08, 0, -1, 0, 0, 0 )
-collision_mask = 17
+[node name="CollisionShape" type="CollisionShape" parent="Head"]
 shape = SubResource( 2 )
-spring_length = 8.0
+
+[node name="Pivot" type="Spatial" parent="."]
+
+[node name="CamArm" type="Spatial" parent="Pivot"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74227e-08, 0, -1, 0, 4, 0 )
 
 [node name="Camera" type="ClippedCamera" parent="Pivot/CamArm"]
 transform = Transform( 1, 0, -9.9476e-14, 0, 1, 0, 0, 0, 1, -6.99382e-07, 0, 8 )
 far = 1000.0
 margin = 0.01
 process_mode = 1
-collision_mask = 65
+collision_mask = 225
 clip_to_areas = true
 
-[node name="iceicebaby" parent="Pivot" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 0 )
+[node name="iceicebaby" parent="Pivot/CamArm" instance=ExtResource( 8 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74227e-08, 0, -1, 0, 0, 0 )
 
-[node name="Statue" parent="Pivot" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.38419e-07, 0 )
+[node name="Statue" parent="Pivot/CamArm" instance=ExtResource( 11 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74227e-08, 0, -1, 0, 0, 0 )
 
-[node name="magnet" parent="Pivot" instance=ExtResource( 12 )]
-player = NodePath("../..")
+[node name="magnet" parent="Pivot/CamArm" instance=ExtResource( 12 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74227e-08, 0, -1, 0, 0, 0 )
+player = NodePath("../../..")
 
 [node name="BombRound" parent="." instance=ExtResource( 6 )]
 hand = NodePath("../Hand")

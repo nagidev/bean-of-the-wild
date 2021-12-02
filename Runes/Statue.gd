@@ -1,12 +1,12 @@
 extends Spatial
-# TODO : timer ui
+# TODO : 
 
 export var enabled = true
 
 onready var raycast = $RayCast
 onready var arrow = $Arrow
 onready var statueTimer = $StatueTimer
-onready var rechargeTimer = $RechargeTimer
+onready var rechargeTimer = UI.stasisTimer
 
 var targetObject = null # stores reference of object stasised
 var charged = true
@@ -15,11 +15,15 @@ var charged = true
 func _ready():
 	statueTimer.connect("timeout", self, "_on_timeout")
 	rechargeTimer.connect("timeout", self, "_on_recharged")
+# warning-ignore:return_value_discarded
 	UI.connect("rune_changed", self, "_on_rune_changed")
 
 
+# warning-ignore:unused_argument
 func _process(delta):
-	if not enabled:
+	if (not enabled) or Global.cutscene or not Global.alive:
+		if UI.runeActive:
+			deactivate()
 		return
 	
 	if UI.currentRune == UI.Rune.STASIS:
@@ -36,7 +40,10 @@ func _process(delta):
 				var collider = raycast.get_collider()
 				
 				if collider is RigidObject:
+					UI.aim()
+					
 					collider.highlight()
+					
 					if Input.is_action_just_pressed("interact"):
 						statue( collider )
 						deactivate()
@@ -45,6 +52,7 @@ func _process(delta):
 		if Input.is_action_just_released("cancel"):
 			deactivate()
 	
+	# manage stasised object
 	if targetObject and targetObject.accumulation.length() > 0.1:
 		arrow.show()
 		

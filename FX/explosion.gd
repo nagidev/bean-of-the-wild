@@ -15,30 +15,33 @@ func _ready():
 	$Particles.emitting = true
 	size = get_node("CollisionShape").shape.radius
 	material.set_shader_param("HighlightColor", Color("0880ff"))
-	print( "Signal connect: ", connect("body_entered", self, "_on_body_entered") == OK )
-	print( "Signal connect: ", anim.connect("animation_finished", self, "_on_finished") == OK )
+	connect("body_entered", self, "_on_body_entered")
+	anim.connect("animation_finished", self, "_on_finished")
 
 
-func _process(delta):
-	t = max(t - delta * 6, 0.0)
-	material.set_shader_param("Energy", t)
+func explode():
+	anim.play("explode")
 
 
-func _on_body_entered(body):
-	#print(body.name + ': ' + str(body is RigidBody))
+func _on_body_entered(body):	
 	var direction = ( body.global_transform.origin - global_transform.origin ).normalized()
-	var distance = max(( body.global_transform.origin - global_transform.origin ).length()/size, 0.01)
+	var distance = max(( global_transform.origin.distance_to(body.global_transform.origin) )/size, 0.01)
 	var power = min((force / pow(distance, 2)), MAX_POWER)
 	if body is RigidObject:
 		body.hit( global_transform.origin, power )
-	elif body is RigidBody:
-		body.apply_central_impulse(direction * power)
+	elif body is Switch:
+		body.hit()
 	elif body is Player:
-		print("direction: ", direction, "\ndistance: ", distance, "\npower: ", power)
 		body.velocity = direction * power
 		body.velocity.y *= 0.1
+		var damage = int( power * 0.1 )
+		body.hurt(damage)
 	elif body is IceBlock:
 		body.destroy_block()
+	elif body is Blockade:
+		body.destroy()
+	elif body is RigidBody:
+		body.apply_central_impulse(direction * power)
 
 
 func _on_finished(_anim_name):

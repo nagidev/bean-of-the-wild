@@ -1,26 +1,34 @@
 extends Spatial
-# TODO : recharge timer ui
+# TODO : 
 
+export var enabled = true
 export (UI.Rune) var type = UI.Rune.BOMB_ROUND
 export var BombScene = preload("res://Runes/bombRound.tscn")
-export var max_distance = 50
+export var max_distance = 80
 export (NodePath) var hand
-
-
-onready var rechargeTimer = $RechargeTimer
 
 
 var bomb = null
 var holding = false
 var charged = true
+var rechargeTimer = null
 
 
 func _ready():
+	# set timer
+	match(type):
+		UI.Rune.BOMB_ROUND:
+			rechargeTimer = UI.bombRoundTimer
+		UI.Rune.BOMB_CUBE:
+			rechargeTimer = UI.bombCubeTimer
 	hand = get_node(hand)
 	rechargeTimer.connect("timeout", self, "_on_recharged")
 
 
 func _process(_delta):
+	if (not enabled) or Global.cutscene or not Global.alive:
+		return
+	
 	if Input.is_action_just_pressed("activate"):
 		if UI.currentRune == type:
 			if hand_holding():
